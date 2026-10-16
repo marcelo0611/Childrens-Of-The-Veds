@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 type CategoryKey = 'all' | '0-2' | '3-5' | '6-9';
@@ -182,6 +182,14 @@ export default function InfanciaScreen() {
 
           <View style={{ height: 28 }} />
         </ScrollView>
+        <View style={{ paddingHorizontal: 16, paddingBottom: 12 }}>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.push('/HomeScreen')}
+          >
+            <Text style={styles.footerButtonText}>Voltar ao Início</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -311,5 +319,17 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     fontSize: 14,
     fontWeight: '700',
+  },
+  footerButton: {
+    backgroundColor: PALETTE.aqua,
+    paddingVertical: 14,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerButtonText: {
+    color: PALETTE.deepText,
+    fontSize: 14,
+    fontWeight: '800',
   },
 });
