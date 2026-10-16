@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
 type CategoryKey = 'all' | '0-2' | '3-5' | '6-9';
 
@@ -86,7 +86,7 @@ const MOCK_TUTORIALS: Tutorial[] = [
 ];
 
 export default function InfanciaScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const [category, setCategory] = useState<CategoryKey>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -97,7 +97,7 @@ export default function InfanciaScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => router.push('/')}
+            onPress={() => navigation.goBack()}
             style={styles.backButton}
             accessibilityLabel="Voltar ao Menu Inicial"
           >

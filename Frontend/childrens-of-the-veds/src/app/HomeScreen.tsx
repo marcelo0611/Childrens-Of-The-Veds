@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const checklist = [
@@ -9,7 +9,13 @@ const checklist = [
   { label: 'Organizar documentos', checked: false },
 ];
 
-export default function HomeScreen() {
+type HomeScreenProps = {
+  navigation: {
+    navigate: (screen: 'Infancia') => void;
+  };
+};
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.deviceFrame}>
@@ -42,16 +48,18 @@ export default function HomeScreen() {
             <Text style={styles.weekSubtitle}>2º trimestre • os dias para conhecer</Text>
             <Text style={styles.weekSubtitle}>seu bebê</Text>
 
-            <View style={styles.progressBox}>
-              <View style={styles.progressHeader}>
-                <Text style={styles.progressTitle}>Progresso da jornada</Text>
-                <Text style={styles.progressPercent}>60%</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Infancia')}>
+              <View style={styles.progressBox}>
+                <View style={styles.progressHeader}>
+                  <Text style={styles.progressTitle}>Progresso da jornada</Text>
+                  <Text style={styles.progressPercent}>60%</Text>
+                </View>
+                <View style={styles.progressTrack}>
+                  <View style={styles.progressFill} />
+                </View>
+                <Text style={styles.progressAction}>Ver tudo</Text>
               </View>
-              <View style={styles.progressTrack}>
-                <View style={styles.progressFill} />
-              </View>
-              <Text style={styles.progressAction}>Ver tudo</Text>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.checkList}>
               {checklist.map((item) => (
@@ -69,33 +77,37 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          <View style={styles.babyCard}>
-            <View style={styles.babyVisualWrap}>
-              <View style={styles.babyAvatar}>
-                <View style={styles.babyHead} />
-                <View style={styles.babyBody} />
+          <TouchableOpacity onPress={() => navigation.navigate('Infancia')}>
+            <View style={styles.babyCard}>
+              <View style={styles.babyVisualWrap}>
+                <View style={styles.babyAvatar}>
+                  <View style={styles.babyHead} />
+                  <View style={styles.babyBody} />
+                </View>
+                <View style={styles.avocadoShape}>
+                  <View style={styles.avocadoSeed} />
+                </View>
               </View>
-              <View style={styles.avocadoShape}>
-                <View style={styles.avocadoSeed} />
-              </View>
-            </View>
 
-            <Text style={styles.babyTitle}>Seu bebê está do tamanho de um</Text>
-            <Text style={styles.babyFruit}>Abacate</Text>
-            <Text style={styles.babySize}>Cerca de 33 cm e 900 g</Text>
-          </View>
+              <Text style={styles.babyTitle}>Seu bebê está do tamanho de um</Text>
+              <Text style={styles.babyFruit}>Abacate</Text>
+              <Text style={styles.babySize}>Cerca de 33 cm e 900 g</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
 
         <View style={styles.tabBar}>
           {['Início', 'Ferramentas', 'Comunidade', 'Perfil'].map((label, index) => (
-            <View key={label} style={[styles.tabItem, index === 0 && styles.tabItemActive]}>
-              <Text style={[styles.tabIcon, index === 0 && styles.tabIconActive]}>
-                {index === 0 ? '⌂' : index === 1 ? '◫' : index === 2 ? '◌' : '◍'}
-              </Text>
-              <Text style={[styles.tabLabel, index === 0 && styles.tabLabelActive]}>
-                {label}
-              </Text>
-            </View>
+            <TouchableOpacity key={label} onPress={() => navigation.navigate('Infancia')}>
+              <View style={[styles.tabItem, index === 0 && styles.tabItemActive]}>
+                <Text style={[styles.tabIcon, index === 0 && styles.tabIconActive]}>
+                  {index === 0 ? '⌂' : index === 1 ? '◫' : index === 2 ? '◌' : '◍'}
+                </Text>
+                <Text style={[styles.tabLabel, index === 0 && styles.tabLabelActive]}>
+                  {label}
+                </Text>
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
@@ -192,12 +204,6 @@ const styles = StyleSheet.create({
   },
   notificationIcon: {
     fontSize: 15,
-  },
-  pageTitle: {
-    color: '#0F172A',
-    fontSize: 13,
-    fontWeight: '700',
-    marginBottom: 10,
   },
   sectionLabel: {
     color: '#475569',
