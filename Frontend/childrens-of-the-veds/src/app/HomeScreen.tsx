@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,13 +10,7 @@ const checklist = [
   { label: 'Organizar documentos', checked: false },
 ];
 
-type HomeScreenProps = {
-  navigation: {
-    navigate: (screen: 'Infancia') => void;
-  };
-};
-
-export default function HomeScreen({ navigation }: HomeScreenProps) {
+export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.deviceFrame}>
@@ -48,7 +43,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
             <Text style={styles.weekSubtitle}>2º trimestre • os dias para conhecer</Text>
             <Text style={styles.weekSubtitle}>seu bebê</Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Infancia')}>
+            <TouchableOpacity onPress={() => router.push('/InfanciaScreen')}>
               <View style={styles.progressBox}>
                 <View style={styles.progressHeader}>
                   <Text style={styles.progressTitle}>Progresso da jornada</Text>
@@ -77,7 +72,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Infancia')}>
+          <TouchableOpacity onPress={() => router.push('/InfanciaScreen')}>
             <View style={styles.babyCard}>
               <View style={styles.babyVisualWrap}>
                 <View style={styles.babyAvatar}>
@@ -98,7 +93,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
         <View style={styles.tabBar}>
           {['Início', 'Ferramentas', 'Comunidade', 'Perfil'].map((label, index) => (
-            <TouchableOpacity key={label} onPress={() => navigation.navigate('Infancia')}>
+            <TouchableOpacity key={label} onPress={() => router.push('/InfanciaScreen')}>
               <View style={[styles.tabItem, index === 0 && styles.tabItemActive]}>
                 <Text style={[styles.tabIcon, index === 0 && styles.tabIconActive]}>
                   {index === 0 ? '⌂' : index === 1 ? '◫' : index === 2 ? '◌' : '◍'}
@@ -265,23 +260,22 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   checkList: {
-    marginTop: 8,
-    gap: 10,
+    marginTop: 10,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    marginBottom: 10,
   },
   checkbox: {
     width: 18,
     height: 18,
-    borderRadius: 9,
-    borderWidth: 1.5,
-    borderColor: '#D0D7DE',
-    backgroundColor: '#FFFFFF',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#A0AEC0',
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 10,
   },
   checkboxChecked: {
     backgroundColor: '#A8DADC',
@@ -289,119 +283,111 @@ const styles = StyleSheet.create({
   },
   checkMark: {
     color: '#0F172A',
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '800',
   },
   checkLabel: {
-    flex: 1,
-    color: '#475569',
+    color: '#334155',
     fontSize: 12,
     lineHeight: 18,
+    flex: 1,
   },
   checkLabelChecked: {
-    color: '#0F172A',
-    fontWeight: '600',
+    textDecorationLine: 'line-through',
+    color: '#64748B',
   },
   babyCard: {
     marginTop: 18,
-    marginBottom: 8,
-    backgroundColor: '#F8F8F8',
-    borderRadius: 20,
-    paddingHorizontal: 18,
-    paddingVertical: 16,
+    backgroundColor: '#EFF9F2',
+    borderRadius: 22,
+    padding: 18,
     shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.04,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
     elevation: 2,
   },
   babyVisualWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
-    gap: 16,
+    marginBottom: 12,
   },
   babyAvatar: {
-    width: 110,
-    height: 110,
     position: 'relative',
+    width: 70,
+    height: 90,
     alignItems: 'center',
     justifyContent: 'center',
   },
   babyHead: {
-    width: 44,
-    height: 44,
-    backgroundColor: '#F7D7B4',
-    borderRadius: 22,
     position: 'absolute',
-    top: 8,
+    top: 0,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#F8D7B5',
   },
   babyBody: {
-    width: 66,
-    height: 64,
-    backgroundColor: '#57B4D1',
-    borderRadius: 24,
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
+    width: 52,
+    height: 56,
+    borderRadius: 18,
+    backgroundColor: '#8ECAE6',
   },
   avocadoShape: {
-    width: 72,
-    height: 92,
-    backgroundColor: '#A7D36F',
-    borderRadius: 30,
-    position: 'relative',
-    transform: [{ rotate: '18deg' }],
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
+    width: 54,
+    height: 76,
+    borderRadius: 28,
+    backgroundColor: '#C8E5A3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
   },
   avocadoSeed: {
-    width: 18,
-    height: 18,
-    backgroundColor: '#D8B48B',
-    borderRadius: 9,
-    position: 'absolute',
-    top: 18,
-    left: 26,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#5D8F3D',
   },
   babyTitle: {
     color: '#0F172A',
     fontSize: 14,
+    fontWeight: '600',
     textAlign: 'center',
   },
   babyFruit: {
     color: '#0F172A',
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: '800',
     textAlign: 'center',
     marginTop: 4,
   },
   babySize: {
     color: '#475569',
-    fontSize: 13,
+    fontSize: 12,
     textAlign: 'center',
     marginTop: 4,
   },
   tabBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
     backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
+    borderTopColor: 'rgba(15, 23, 42, 0.08)',
   },
   tabItem: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 6,
+    flex: 1,
   },
   tabItemActive: {
-    backgroundColor: '#F6FAFC',
-    borderRadius: 12,
+    opacity: 1,
   },
   tabIcon: {
     fontSize: 18,
@@ -411,9 +397,9 @@ const styles = StyleSheet.create({
     color: '#0F172A',
   },
   tabLabel: {
+    marginTop: 2,
     fontSize: 10,
     color: '#64748B',
-    marginTop: 4,
   },
   tabLabelActive: {
     color: '#0F172A',

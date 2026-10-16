@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   SafeAreaView,
@@ -86,18 +86,17 @@ const MOCK_TUTORIALS: Tutorial[] = [
 ];
 
 export default function InfanciaScreen() {
-  const navigation = useNavigation();
   const [category, setCategory] = useState<CategoryKey>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const filtered = MOCK_TUTORIALS.filter((t) => category === 'all' || t.category === category);
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
+    <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={() => router.back()}
             style={styles.backButton}
             accessibilityLabel="Voltar ao Menu Inicial"
           >
@@ -156,7 +155,7 @@ export default function InfanciaScreen() {
                 </TouchableOpacity>
 
                 {isOpen ? (
-                  <View style={styles.accordion}> 
+                  <View style={styles.accordion}>
                     {tut.steps.map((s) => (
                       <View key={s.id} style={styles.stepRow}>
                         <View style={styles.stepIcon}>
@@ -173,6 +172,13 @@ export default function InfanciaScreen() {
               </View>
             );
           })}
+
+          <TouchableOpacity
+            style={styles.nextPhaseButton}
+            onPress={() => router.push('/PreAdolescenciaScreen')}
+          >
+            <Text style={styles.nextPhaseText}>Próxima fase: Pré-Adolescência</Text>
+          </TouchableOpacity>
 
           <View style={{ height: 28 }} />
         </ScrollView>
@@ -259,35 +265,51 @@ const styles = StyleSheet.create({
   iconWrap: {
     width: 56,
     height: 56,
-    borderRadius: 12,
-    backgroundColor: PALETTE.babyBlue,
+    borderRadius: 16,
+    backgroundColor: '#DCF5FF',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  iconText: { fontSize: 22 },
+  iconText: { fontSize: 24 },
   cardMain: { flex: 1 },
-  cardTitle: { fontSize: 15, fontWeight: '800', color: PALETTE.deepText },
-  cardMeta: { fontSize: 12, color: '#475569', marginTop: 4 },
-  chev: { fontSize: 18, color: '#94A3B8' },
+  cardTitle: { fontSize: 15, fontWeight: '700', color: '#0F172A' },
+  cardMeta: { marginTop: 4, fontSize: 11, color: '#64748B' },
+  chev: { fontSize: 20, color: '#0F172A' },
   accordion: {
-    marginTop: 10,
-    padding: 12,
-    backgroundColor: '#FFFFFF',
+    marginTop: 8,
+    backgroundColor: '#F7FBFF',
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#EDF7FA',
+    padding: 10,
   },
-  stepRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 10 },
+  stepRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    marginBottom: 10,
+  },
   stepIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: PALETTE.aqua,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#E0F2FE',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  stepIconText: { fontSize: 18 },
+  stepIconText: { fontSize: 14 },
   stepMain: { flex: 1 },
-  stepTitle: { fontSize: 13, fontWeight: '700', color: PALETTE.deepText },
-  stepBody: { fontSize: 13, color: '#475569', marginTop: 2 },
+  stepTitle: { fontSize: 12, fontWeight: '700', color: '#0F172A' },
+  stepBody: { marginTop: 2, fontSize: 12, lineHeight: 18, color: '#334155' },
+  nextPhaseButton: {
+    marginTop: 12,
+    backgroundColor: '#A8DADC',
+    borderRadius: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nextPhaseText: {
+    color: '#0F172A',
+    fontSize: 14,
+    fontWeight: '700',
+  },
 });
