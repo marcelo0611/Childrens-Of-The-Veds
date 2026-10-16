@@ -31,13 +31,11 @@ export default function HomeScreen() {
               <View style={styles.logoWrap}>
                 <Text style={styles.logoIcon}>👨‍👩‍👧</Text>
               </View>
-              <Text style={styles.logoText}>Pai de</Text>
+              <Text style={styles.logoText}>Pai de Primeira Viagem</Text>
               <View style={styles.notificationDot}>
                 <Text style={styles.notificationIcon}>🔔</Text>
               </View>
             </View>
-
-            <Text style={styles.pageTitle}>Primeira Viagem</Text>
 
             <Text style={styles.sectionLabel}>Você está em</Text>
             <Text style={styles.weekTitle}>Semana 26</Text>
